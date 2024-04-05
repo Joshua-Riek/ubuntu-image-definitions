@@ -1,0 +1,52 @@
+name: ubuntu-server-arm64
+display-name: Ubuntu Server arm64
+revision: 2
+architecture: arm64
+series: noble
+class: preinstalled
+kernel: linux-image-rockchip
+gadget:
+  url: "https://git.launchpad.net/~canonical-foundations/snap-pc/+git/github-mirror-amd64"
+  branch: classic
+  type: "git"
+rootfs:
+  archive: ubuntu
+  components:
+    - main
+    - restricted
+    - universe
+    - multiverse
+  mirror: "http://ports.ubuntu.com/ubuntu-ports/"
+  pocket: updates
+  seed:
+    urls:
+      - "git://git.launchpad.net/~ubuntu-core-dev/ubuntu-seeds/+git/"
+    branch: noble
+    names:
+      - server
+      - minimal
+      - standard
+      - cloud-image
+customization:
+  cloud-init:
+    user-data: |
+      #cloud-config
+      chpasswd:
+        expire: true
+        users:
+          - name: ubuntu
+            password: ubuntu
+            type: text
+    meta-data: |
+      dsmode: local
+      instance_id: ubuntu-server
+  extra-snaps:
+    - name: snapd
+  extra-packages:
+    - name: u-boot-menu
+artifacts:
+  img:
+    -
+      name: ubuntu-24.04-preinstalled-server-arm64.img
+  manifest:
+    name: "filesystem-manifest.txt"
