@@ -6,8 +6,8 @@ series: noble
 class: preinstalled
 kernel: linux-image-rockchip
 gadget:
-  url: "https://git.launchpad.net/~canonical-foundations/snap-pc/+git/github-mirror-amd64"
-  branch: classic
+  url: "https://github.com/Joshua-Riek/pc-gadget"
+  branch: classic-rockchip
   type: "git"
 rootfs:
   archive: ubuntu
@@ -28,6 +28,9 @@ rootfs:
       - standard
       - cloud-image
 customization:
+  extra-ppas:
+  -
+    name: jjriek/rockchip
   cloud-init:
     user-data: |
       #cloud-config
@@ -45,8 +48,9 @@ customization:
   extra-packages:
     - name: u-boot-menu
 artifacts:
-  img:
-    -
-      name: ubuntu-24.04-preinstalled-server-arm64.img
+  rootfs-tarball:
+    name: ubuntu-24.04-preinstalled-server-arm64.tar.gz
+    compression: gzip
   manifest:
-    name: "filesystem-manifest.txt"
+    name: ubuntu-24.04-preinstalled-server-arm64..manifest
+
