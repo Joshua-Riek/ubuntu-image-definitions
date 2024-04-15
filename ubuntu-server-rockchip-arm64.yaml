@@ -29,20 +29,7 @@ rootfs:
       - cloud-image
 customization:
   extra-ppas:
-  -
-    name: jjriek/rockchip
-  cloud-init:
-    user-data: |
-      #cloud-config
-      chpasswd:
-        expire: true
-        users:
-          - name: ubuntu
-            password: ubuntu
-            type: text
-    meta-data: |
-      dsmode: local
-      instance_id: ubuntu-server
+  - name: jjriek/rockchip
   extra-snaps:
     - name: snapd
   extra-packages:
@@ -52,5 +39,5 @@ artifacts:
     name: ubuntu-24.04-preinstalled-server-arm64.tar.gz
     compression: gzip
   manifest:
-    name: ubuntu-24.04-preinstalled-server-arm64..manifest
+    name: ubuntu-24.04-preinstalled-server-arm64.manifest
 

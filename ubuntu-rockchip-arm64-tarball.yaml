@@ -1,0 +1,54 @@
+name: ubuntu-desktop-arm64
+display-name: Ubuntu Preinstalled Desktop arm64
+revision: 2
+architecture: arm64
+series: noble
+class: preinstalled
+kernel: linux-image-rockchip
+rootfs:
+  archive: ubuntu
+  components:
+    - main
+    - restricted
+    - universe
+    - multiverse
+  mirror: "http://ports.ubuntu.com/ubuntu-ports/"
+  pocket: updates
+  seed:
+    urls:
+      - "git://git.launchpad.net/~jjriek/ubuntu-seeds/+git/"
+    branch: noble
+    names:
+      - desktop
+      - desktop-minimal
+      - minimal
+      - standard
+customization:
+  extra-ppas:
+  - name: jjriek/rockchip
+  extra-snaps:
+    - name: snapd
+    - name: bare
+    - name: gnome-42-2204
+      channel: stable/ubuntu-24.04
+    - name: gtk-common-themes
+      channel: stable/ubuntu-24.04
+    - name: snap-store
+      channel: stable/ubuntu-24.04
+    - name: snapd-desktop-integration
+      channel: stable/ubuntu-24.04
+  extra-packages:
+    - name: oem-config-gtk
+    - name: oem-config
+    - name: ubiquity-frontend-gtk
+    - name: language-pack-en-base
+    - name: oem-config-slideshow-ubuntu
+    - name: ubiquity-slideshow-ubuntu
+    - name: u-boot-menu
+    - name: rockchip-firmware
+artifacts:
+  rootfs-tarball:
+    name: ubuntu-24.04-preinstalled-desktop-arm64-rootfs.tar.gz
+    compression: gzip
+  manifest:
+    name: ubuntu-24.04-preinstalled-desktop-arm64-rootfs.manifest
