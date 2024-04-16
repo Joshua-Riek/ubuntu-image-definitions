@@ -1,5 +1,5 @@
-name: ubuntu-desktop-arm64
-display-name: Ubuntu Preinstalled Desktop arm64
+name: ubuntu-noble-preinstalled-desktop-arm64
+display-name: Ubuntu 24.04 Preinstalled Desktop arm64
 revision: 2
 architecture: arm64
 series: noble
@@ -48,7 +48,7 @@ customization:
     - name: rockchip-firmware
 artifacts:
   rootfs-tarball:
-    name: ubuntu-24.04-preinstalled-desktop-arm64-rootfs.tar.gz
+    name: ubuntu-noble-preinstalled-desktop-arm64.tar.gz
     compression: gzip
   manifest:
-    name: ubuntu-24.04-preinstalled-desktop-arm64-rootfs.manifest
+    name: ubuntu-noble-preinstalled-desktop-arm64.manifest

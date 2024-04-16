@@ -1,14 +1,10 @@
-name: ubuntu-server-arm64
-display-name: Ubuntu Server arm64
+name: ubuntu-noble-preinstalled-server-arm64
+display-name: Ubuntu 22.04 Preinstalled Server arm64
 revision: 2
 architecture: arm64
 series: noble
 class: preinstalled
 kernel: linux-image-rockchip
-gadget:
-  url: "https://github.com/Joshua-Riek/pc-gadget"
-  branch: classic-rockchip
-  type: "git"
 rootfs:
   archive: ubuntu
   components:
@@ -20,7 +16,7 @@ rootfs:
   pocket: updates
   seed:
     urls:
-      - "git://git.launchpad.net/~ubuntu-core-dev/ubuntu-seeds/+git/"
+      - "git://git.launchpad.net/~jjriek/ubuntu-seeds/+git/" 
     branch: noble
     names:
       - server
@@ -34,10 +30,11 @@ customization:
     - name: snapd
   extra-packages:
     - name: u-boot-menu
+    - name: rockchip-firmware
 artifacts:
   rootfs-tarball:
-    name: ubuntu-24.04-preinstalled-server-arm64.tar.gz
+    name: ubuntu-noble-preinstalled-server-arm64.tar.gz
     compression: gzip
   manifest:
-    name: ubuntu-24.04-preinstalled-server-arm64.manifest
+    name: ubuntu-noble-preinstalled-server-arm64.manifest
 

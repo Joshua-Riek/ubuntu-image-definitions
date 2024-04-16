@@ -38,7 +38,7 @@ jobs:
 
       - name: Build
         shell: bash
-        run: sudo ./build.sh
+        run: sudo ./docker.sh
         
       - name: Upload
         uses: actions/upload-artifact@v4.3.1
