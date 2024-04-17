@@ -23,14 +23,15 @@ rootfs:
       - minimal
       - standard
       - cloud-image
+      - rockchip-common
+      - server-rockchip
 customization:
   extra-ppas:
   - name: jjriek/rockchip
   extra-snaps:
     - name: snapd
-  extra-packages:
-    - name: u-boot-menu
-    - name: rockchip-firmware
+    - name: core22
+    - name: lxd
 artifacts:
   rootfs-tarball:
     name: ubuntu-noble-preinstalled-server-arm64.tar.gz
