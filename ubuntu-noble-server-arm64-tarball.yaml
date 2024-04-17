@@ -25,13 +25,27 @@ rootfs:
       - cloud-image
       - rockchip-common
       - server-rockchip
+  sources-list-deb822: true
 customization:
+  manual:
+    copy-file:
+      -
+        source: extra-ppas.pref.chroot
+        destination: /etc/apt/preferences.d/
+    execute:
+      -
+        path: rm -rf /boot/grub
   extra-ppas:
-  - name: jjriek/rockchip
+    - name: jjriek/rockchip
+    - name: jjriek/rockchip-multimedia
+    - name: jjriek/panfork-mesa
   extra-snaps:
     - name: snapd
     - name: core22
     - name: lxd
+  extra-packages:
+    - name: mali-g610-firmware
+    - name: rockchip-multimedia-config
 artifacts:
   rootfs-tarball:
     name: ubuntu-noble-preinstalled-server-arm64.tar.gz

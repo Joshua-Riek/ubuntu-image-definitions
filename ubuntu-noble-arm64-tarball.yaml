@@ -25,9 +25,20 @@ rootfs:
       - standard
       - rockchip-common
       - desktop-rockchip
+  sources-list-deb822: true
 customization:
+  manual:
+    copy-file:
+      -
+        source: extra-ppas.pref.chroot
+        destination: /etc/apt/preferences.d/
+    execute:
+      -
+        path: rm -rf /boot/grub
   extra-ppas:
-  - name: jjriek/rockchip
+    - name: jjriek/rockchip
+    - name: jjriek/rockchip-multimedia
+    - name: jjriek/panfork-mesa
   extra-snaps:
     - name: snapd
     - name: core22
@@ -39,6 +50,11 @@ customization:
     - name: language-pack-en-base
     - name: oem-config-slideshow-ubuntu
     - name: ubiquity-slideshow-ubuntu
+    - name: mali-g610-firmware
+    - name: rockchip-multimedia-config
+    - name: gstreamer1.0-rockchip1
+    - name: chromium-browser
+    - name: libv4l-rkmpp
 artifacts:
   rootfs-tarball:
     name: ubuntu-noble-preinstalled-desktop-arm64.tar.gz
