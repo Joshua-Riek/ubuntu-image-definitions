@@ -30,9 +30,12 @@ customization:
       -
         source: extra-ppas.pref.chroot
         destination: /etc/apt/preferences.d/
+      -
+        source: tweaks.sh
+        destination: /
     execute:
       -
-        path: rm -rf /boot/grub
+        path: /tweaks.sh
   extra-ppas:
     - name: jjriek/rockchip
     - name: jjriek/rockchip-multimedia
@@ -47,8 +50,5 @@ customization:
     - name: ubuntu-server-rockchip
 artifacts:
   rootfs-tarball:
-    name: ubuntu-noble-preinstalled-server-arm64.tar.gz
-    compression: gzip
-  manifest:
-    name: ubuntu-noble-preinstalled-server-arm64.manifest
-
+    name: ubuntu-noble-preinstalled-server-arm64.tar.xz
+    compression: xz
