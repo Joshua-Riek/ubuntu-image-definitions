@@ -36,10 +36,14 @@ jobs:
           python3-distutils python3-pkg-resources swig libfdt-dev libpython3-dev dctrl-tools \
           live-build livecd-rootfs golang-go
 
+      - name: Build Docker 
+        shell: bash
+        run: docker build -t foobar docker
+        
       - name: Build
         shell: bash
-        run: sudo ./docker.sh
-        
+        run: docker run --privileged -v /dev:/dev --rm -v "$(pwd)":/opt foobar ubuntu-image classic -w work -O out ubuntu-noble-arm64-tarball.yaml
+
       - name: Upload
         uses: actions/upload-artifact@v4.3.1
         with:

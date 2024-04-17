@@ -3,8 +3,6 @@
 set -eE 
 trap 'echo Error: in $0 on line $LINENO' ERR
 
-pushd .
-
 tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
@@ -19,10 +17,6 @@ apt-get build-dep . -y
 dpkg-buildpackage -us -uc
 apt-get install ../*.deb --assume-yes --allow-downgrades 
 dpkg -i ../*.deb
+apt-mark hold ubuntu-image
 
 rm -rf "${tmp_dir}"
-
-popd 
-
-ubuntu-image classic -w work -O out ubuntu-noble-arm64-tarball.yaml
-
