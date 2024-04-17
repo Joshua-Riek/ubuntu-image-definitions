@@ -23,8 +23,6 @@ rootfs:
       - desktop-minimal
       - minimal
       - standard
-      - rockchip-common
-      - desktop-rockchip
   sources-list-deb822: true
 customization:
   manual:
@@ -55,6 +53,7 @@ customization:
     - name: gstreamer1.0-rockchip1
     - name: chromium-browser
     - name: libv4l-rkmpp
+    - name: ubuntu-desktop-rockchip
 artifacts:
   rootfs-tarball:
     name: ubuntu-noble-preinstalled-desktop-arm64.tar.gz

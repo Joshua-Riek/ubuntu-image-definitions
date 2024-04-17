@@ -23,8 +23,6 @@ rootfs:
       - minimal
       - standard
       - cloud-image
-      - rockchip-common
-      - server-rockchip
   sources-list-deb822: true
 customization:
   manual:
@@ -46,6 +44,7 @@ customization:
   extra-packages:
     - name: mali-g610-firmware
     - name: rockchip-multimedia-config
+    - name: ubuntu-server-rockchip
 artifacts:
   rootfs-tarball:
     name: ubuntu-noble-preinstalled-server-arm64.tar.gz
