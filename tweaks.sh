@@ -51,7 +51,7 @@ EOF
 # Default kernel command line arguments
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > /etc/kernel/cmdline
 
-if [ "$(dpkg -l | awk '/oem-config/ {print }'| wc -l)" -ge 1 ]; then
+if dpkg -s oem-config; then
     mkdir -p /var/log/installer
     touch /var/log/installer/debug
     touch /var/log/syslog
