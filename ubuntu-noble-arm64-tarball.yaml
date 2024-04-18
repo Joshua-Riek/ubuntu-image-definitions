@@ -23,7 +23,6 @@ rootfs:
       - desktop-minimal
       - minimal
       - standard
-  sources-list-deb822: true
 customization:
   manual:
     copy-file:

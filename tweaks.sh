@@ -57,9 +57,6 @@ if [ "$(dpkg -l | awk '/oem-config/ {print }'| wc -l)" -ge 1 ]; then
 fi
 
 apt-get -y purge flash-kernel fwupd 
-apt-get -y update
-apt-get --allow-downgrades -y upgrade
-apt-get --allow-downgrades -y dist-upgrade
 
 update-initramfs -u
 u-boot-update
