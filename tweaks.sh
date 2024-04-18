@@ -25,6 +25,21 @@ fi
 echo EXTRA_GROUPS=\"video\" >> /etc/adduser.conf
 echo ADD_EXTRA_GROUPS=1 >>  /etc/adduser.conf
 
+# Pin Launchpad PPA
+cat << EOF > /etc/apt/preferences.d/ubuntu-rockchip-ppas
+Package: *
+Pin: release o=LP-PPA-jjriek-rockchip
+Pin-Priority: 1001
+
+Package: *
+Pin: release o=LP-PPA-jjriek-rockchip-multimedia
+Pin-Priority: 1001
+
+Package: *
+Pin: release o=LP-PPA-jjriek-panfork-mesa
+Pin-Priority: 1001
+EOF
+
 # Override u-boot-menu config  
 mkdir -p /usr/share/u-boot-menu/conf.d
 cat << 'EOF' > /usr/share/u-boot-menu/conf.d/ubuntu.conf

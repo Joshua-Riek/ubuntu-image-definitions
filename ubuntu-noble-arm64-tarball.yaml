@@ -27,9 +27,6 @@ customization:
   manual:
     copy-file:
       -
-        source: extra-ppas.pref.chroot
-        destination: /etc/apt/preferences.d/
-      -
         source: tweaks.sh
         destination: /
     execute:
