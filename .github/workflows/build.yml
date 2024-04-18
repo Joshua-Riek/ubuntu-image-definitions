@@ -48,7 +48,7 @@ jobs:
         
       - name: Build
         shell: bash
-        run: docker run --privileged -v /dev:/dev --rm -v "$(pwd)":/opt foobar ubuntu-image classic -w work -O out ${{ matrix.image-definition }}.yaml
+        run: docker run --privileged -v /dev:/dev --rm -v "$(pwd)":/opt foobar ubuntu-image classic -w work -O out ${{ matrix.image-definition }}.yaml --debug
 
       - name: Upload
         uses: actions/upload-artifact@v4.3.1

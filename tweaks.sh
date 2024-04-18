@@ -25,10 +25,13 @@ fi
 echo EXTRA_GROUPS=\"video\" >> /etc/adduser.conf
 echo ADD_EXTRA_GROUPS=1 >>  /etc/adduser.conf
 
-# Config for u-boot-menu
-echo 'U_BOOT_PROMPT="1"' > /usr/share/u-boot-menu/conf.d/ubuntu.conf
-echo 'U_BOOT_PARAMETERS="$(cat /etc/kernel/cmdline)"' >> /usr/share/u-boot-menu/conf.d/ubuntu.conf
-echo 'U_BOOT_TIMEOUT="10"' >> /usr/share/u-boot-menu/conf.d/ubuntu.conf
+# Override u-boot-menu config  
+mkdir -p /usr/share/u-boot-menu/conf.d
+cat << 'EOF' > /usr/share/u-boot-menu/conf.d/ubuntu.conf
+U_BOOT_PROMPT="1"
+U_BOOT_PARAMETERS="$(cat /etc/kernel/cmdline)"
+U_BOOT_TIMEOUT="10"
+EOF
 
 # Default kernel command line arguments
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > /etc/kernel/cmdline
@@ -57,5 +60,8 @@ apt-get -y purge flash-kernel fwupd
 apt-get -y update
 apt-get --allow-downgrades -y upgrade
 apt-get --allow-downgrades -y dist-upgrade
+
+update-initramfs -u
+u-boot-update
 
 rm -- "$0"
