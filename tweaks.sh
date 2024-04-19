@@ -160,6 +160,10 @@ if dpkg -s oem-config; then
     echo -n "quiet splash plymouth.ignore-serial-consoles" >> /etc/kernel/cmdline
 fi
 
+add-apt-repository -y ppa:jjriek/panfork-mesa
+add-apt-repository -y ppa:jjriek/rockchip-multimedia
+add-apt-repository -y ppa:jjriek/rockchip
+
 # Grab the launchpad key
 curl -S "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3CC0D9D1F3F0354B50D24F51F02122ECF25FB4D7" | gpg --batch --yes --dearmor --output /etc/apt/trusted.gpg.d/launchpad-jjriek.gpg
 
