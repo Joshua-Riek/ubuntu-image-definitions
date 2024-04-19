@@ -71,6 +71,9 @@ if dpkg -s oem-config; then
     echo -n "quiet splash plymouth.ignore-serial-consoles" >> /etc/kernel/cmdline
 fi
 
+# Grab the launchpad key
+curl -S "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3CC0D9D1F3F0354B50D24F51F02122ECF25FB4D7" | gpg --batch --yes --dearmor --output /etc/apt/trusted.gpg.d/launchpad-jjriek.gpg
+
 apt-get -y purge flash-kernel fwupd 
 
 update-initramfs -u
