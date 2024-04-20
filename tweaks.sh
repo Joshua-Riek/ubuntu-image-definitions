@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Do not let systemd handle resolv.conf
+rm -rf /etc/resolv.conf
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+# Update localisation files
+locale-gen en_US.UTF-8
+update-locale LANG="en_US.UTF-8"
+
 # Disable terminal ads
 pro config set apt_news=false
 
@@ -21,6 +29,9 @@ rm -rf /boot/grub
 if [ -f /etc/default/motd-news ]; then
     sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news
 fi
+
+# Grab launchpad key
+curl -S "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3CC0D9D1F3F0354B50D24F51F02122ECF25FB4D7" | gpg --batch --yes --dearmor --output "/etc/apt/trusted.gpg.d/launchpad-jjriek.gpg"
 
 # Pin Launchpad PPA
 cat << 'EOF' > /etc/apt/preferences.d/ubuntu-rockchip-ppas
@@ -140,7 +151,7 @@ EOF
 # Default kernel command line arguments
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > /etc/kernel/cmdline
 
-if dpkg -s oem-config; then
+if dpkg -s oem-config &>/dev/null; then
     mkdir -p /var/log/installer
     touch /var/log/installer/debug
     touch /var/log/syslog
@@ -160,19 +171,22 @@ if dpkg -s oem-config; then
     echo -n "quiet splash plymouth.ignore-serial-consoles" >> /etc/kernel/cmdline
 fi
 
-rm -rf /etc/resolv.conf
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-
-# Grab the launchpad key
-curl -S "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3CC0D9D1F3F0354B50D24F51F02122ECF25FB4D7" | gpg --batch --yes --dearmor --output "/etc/apt/trusted.gpg.d/launchpad-jjriek.gpg"
-
+# Download and update installed packages
 apt-get update
-apt-get upgrade --allow-downgrades -y
-apt-get dist-upgrade --allow-downgrades -y
+apt-get upgrade --allow-downgrades --assume-yes
+apt-get dist-upgrade --allow-downgrades --assume-yes
 
 apt-get -y purge flash-kernel fwupd 
 
+# Clean package cache
+apt-get autoremove --assume-yes
+apt-get clean --assume-yes
+apt-get autoclean --assume-yes
+
+# Make sure the initramfs is up to date
 update-initramfs -u
+
+# Update extlinux
 u-boot-update
 
 rm -- "$0"
