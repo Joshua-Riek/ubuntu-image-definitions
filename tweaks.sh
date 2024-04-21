@@ -152,6 +152,9 @@ EOF
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > /etc/kernel/cmdline
 
 if dpkg -s oem-config &>/dev/null; then
+apt update
+DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes oem-config-gtk openssh-server cloud-initramfs-growroot ubiquity-frontend-gtk ubiquity-slideshow-ubuntu libparted2t64
+
     mkdir -p /var/log/installer
     touch /var/log/installer/debug
     touch /var/log/syslog
