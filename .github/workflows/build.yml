@@ -17,16 +17,6 @@ jobs:
           - ubuntu-noble-server-arm64-tarball
 
     steps:
-      - name: Get more disk space
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          swap-storage: true
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -35,20 +25,23 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get upgrade -y
           sudo apt-get install -y build-essential gcc-aarch64-linux-gnu bison \
-          qemu-user-static qemu-system-arm qemu-efi u-boot-tools binfmt-support \
+          qemu-user-static qemu-system-arm u-boot-tools binfmt-support \
           debootstrap flex libssl-dev bc rsync kmod cpio xz-utils fakeroot parted \
-          udev dosfstools uuid-runtime git-lfs device-tree-compiler python2 python3 \
+          udev dosfstools uuid-runtime git-lfs device-tree-compiler  python3 \
           python-is-python3 fdisk bc debhelper python3-pyelftools python3-setuptools \
-          python3-distutils python3-pkg-resources swig libfdt-dev libpython3-dev dctrl-tools \
-          live-build livecd-rootfs golang-go
+          python3-pkg-resources swig libfdt-dev libpython3-dev dctrl-tools \
+          live-build livecd-rootfs golang-go bc \
+          binfmt-support bison build-essential cpio debootstrap debhelper \
+          device-tree-compiler dosfstools fakeroot fdisk flex gcc-aarch64-linux-gnu git-lfs kmod libssl-dev \
+          parted python3 qemu-system-arm qemu-user-static rsync u-boot-tools udev uuid-runtime xz-utils \
 
-      - name: Build Docker 
+      - name: Build Ubuntu Image 
         shell: bash
-        run: docker build -t foobar docker
+        run: ./build-ubuntu-image.sh
         
       - name: Build
         shell: bash
-        run: docker run --privileged -v /dev:/dev --rm -v "$(pwd)":/opt foobar ubuntu-image classic -w work -O out ${{ matrix.image-definition }}.yaml --debug
+        run: ubuntu-image classic -w work -O out ${{ matrix.image-definition }}.yaml --debug
 
       - name: Upload
         uses: actions/upload-artifact@v4.3.1

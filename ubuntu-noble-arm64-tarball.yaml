@@ -16,10 +16,9 @@ rootfs:
   pocket: updates
   seed:
     urls:
-      - "git://git.launchpad.net/~jjriek/ubuntu-seeds/+git/"
+      - "git://git.launchpad.net/~ubuntu-core-dev/ubuntu-seeds/+git/"
     branch: noble
     names:
-      - desktop
       - desktop-minimal
       - minimal
       - standard
@@ -36,10 +35,6 @@ customization:
     - name: jjriek/rockchip
     - name: jjriek/rockchip-multimedia
     - name: jjriek/panfork-mesa
-  extra-snaps:
-    - name: snapd
-    - name: core22
-    - name: lxd
   extra-packages:
     - name: oem-config-gtk
     - name: oem-config
