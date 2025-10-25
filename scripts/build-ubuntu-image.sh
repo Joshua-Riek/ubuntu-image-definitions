@@ -19,3 +19,4 @@ sudo dpkg -i ../*.deb
 sudo apt-mark hold ubuntu-image
 
 sudo rm -rf "${tmp_dir}"
+#sudo ubuntu-image classic -w work -O out ubuntu-noble-arm64-tarball.yaml 

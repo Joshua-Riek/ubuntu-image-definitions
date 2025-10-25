@@ -1,8 +1,8 @@
-name: ubuntu-noble-preinstalled-server-arm64
-display-name: Ubuntu 22.04 Preinstalled Server arm64
+name: ubuntu-jammy-preinstalled-desktop-arm64
+display-name: Ubuntu 22.04 Preinstalled Desktop arm64
 revision: 2
 architecture: arm64
-series: noble
+series: jammy
 class: preinstalled
 kernel: linux-image-rockchip
 rootfs:
@@ -17,12 +17,11 @@ rootfs:
   seed:
     urls:
       - "git://git.launchpad.net/~ubuntu-core-dev/ubuntu-seeds/+git/"
-    branch: noble
+    branch: jammy
     names:
-      - server
+      - desktop-minimal
       - minimal
       - standard
-      - cloud-image
 customization:
   manual:
     copy-file:
@@ -32,19 +31,26 @@ customization:
     execute:
       -
         path: /tweaks.sh
+  extra-snaps:
+    - name: snapd
   extra-ppas:
     - name: jjriek/rockchip
     - name: jjriek/rockchip-multimedia
     - name: jjriek/panfork-mesa
-  extra-snaps:
-    - name: snapd
-    - name: core22
-    - name: lxd
   extra-packages:
+    - name: oem-config-gtk
+    - name: oem-config
+    - name: ubiquity-frontend-gtk
+    - name: language-pack-en-base
+    - name: oem-config-slideshow-ubuntu
+    - name: ubiquity-slideshow-ubuntu
     - name: mali-g610-firmware
     - name: rockchip-multimedia-config
-    - name: ubuntu-server-rockchip
+    - name: gstreamer1.0-rockchip1
+    - name: chromium-browser
+    - name: libv4l-rkmpp
+    - name: ubuntu-desktop-rockchip
 artifacts:
   rootfs-tarball:
-    name: ubuntu-noble-preinstalled-server-arm64.tar.xz
+    name: ubuntu-jammy-preinstalled-desktop-arm64.tar.xz
     compression: xz

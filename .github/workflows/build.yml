@@ -13,7 +13,9 @@ jobs:
     strategy:
       matrix:
         image-definition:
+          - ubuntu-jammy-arm64-tarball
           - ubuntu-noble-arm64-tarball
+          - ubuntu-jammy-server-arm64-tarball
           - ubuntu-noble-server-arm64-tarball
 
     steps:
@@ -37,11 +39,11 @@ jobs:
 
       - name: Build Ubuntu Image 
         shell: bash
-        run: ./build-ubuntu-image.sh
+        run: ./scripts/build-ubuntu-image.sh
         
       - name: Build
         shell: bash
-        run: ubuntu-image classic -w work -O out ${{ matrix.image-definition }}.yaml --debug
+        run: sudo ubuntu-image classic -w work -O out ./definitions/${{ matrix.image-definition }}.yaml --debug
 
       - name: Upload
         uses: actions/upload-artifact@v4.3.1

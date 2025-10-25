@@ -7,6 +7,7 @@ class: preinstalled
 kernel: linux-image-rockchip
 rootfs:
   archive: ubuntu
+  sources-list-deb822: true
   components:
     - main
     - restricted
@@ -31,6 +32,8 @@ customization:
     execute:
       -
         path: /tweaks.sh
+  extra-snaps:
+    - name: snapd
   extra-ppas:
     - name: jjriek/rockchip
     - name: jjriek/rockchip-multimedia

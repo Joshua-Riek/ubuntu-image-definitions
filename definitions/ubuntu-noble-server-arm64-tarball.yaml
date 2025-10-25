@@ -1,0 +1,51 @@
+name: ubuntu-noble-preinstalled-server-arm64
+display-name: Ubuntu 24.04 Preinstalled Server arm64
+revision: 2
+architecture: arm64
+series: noble
+class: preinstalled
+kernel: linux-image-rockchip
+rootfs:
+  archive: ubuntu
+  sources-list-deb822: true
+  components:
+    - main
+    - restricted
+    - universe
+    - multiverse
+  mirror: "http://ports.ubuntu.com/ubuntu-ports/"
+  pocket: updates
+  seed:
+    urls:
+      - "git://git.launchpad.net/~ubuntu-core-dev/ubuntu-seeds/+git/"
+    branch: noble
+    names:
+      - server
+      - minimal
+      - standard
+      - cloud-image
+customization:
+  manual:
+    copy-file:
+      -
+        source: tweaks.sh
+        destination: /
+    execute:
+      -
+        path: /tweaks.sh
+  extra-ppas:
+    - name: jjriek/rockchip
+    - name: jjriek/rockchip-multimedia
+    - name: jjriek/panfork-mesa
+  extra-snaps:
+    - name: snapd
+    - name: core22
+    - name: lxd
+  extra-packages:
+    - name: mali-g610-firmware
+    - name: rockchip-multimedia-config
+    - name: ubuntu-server-rockchip
+artifacts:
+  rootfs-tarball:
+    name: ubuntu-noble-preinstalled-server-arm64.tar.xz
+    compression: xz
