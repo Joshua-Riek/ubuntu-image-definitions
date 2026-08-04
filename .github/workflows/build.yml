@@ -1,53 +1,23 @@
-name: Build
-
-on:
-  push:
-    branches:
-      - 'main'
+name: build
+on: [push]
 
 jobs:
-  kernel:
+  build:
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
-    name: Build
-
-    strategy:
-      matrix:
-        image-definition:
-          - ubuntu-jammy-arm64-tarball
-          - ubuntu-noble-arm64-tarball
-          - ubuntu-jammy-server-arm64-tarball
-          - ubuntu-noble-server-arm64-tarball
-
     steps:
-      - name: Checkout code
+      - name: download repo
         uses: actions/checkout@v4
-
-      - name: Install dependencies
-        shell: bash
+      
+      - name: run build
         run: |
-          sudo apt-get update && sudo apt-get upgrade -y
-          sudo apt-get install -y build-essential gcc-aarch64-linux-gnu bison \
-          qemu-user-static qemu-system-arm u-boot-tools binfmt-support \
-          debootstrap flex libssl-dev bc rsync kmod cpio xz-utils fakeroot parted \
-          udev dosfstools uuid-runtime git-lfs device-tree-compiler  python3 \
-          python-is-python3 fdisk bc debhelper python3-pyelftools python3-setuptools \
-          python3-pkg-resources swig libfdt-dev libpython3-dev dctrl-tools \
-          live-build livecd-rootfs golang-go bc \
-          binfmt-support bison build-essential cpio debootstrap debhelper \
-          device-tree-compiler dosfstools fakeroot fdisk flex gcc-aarch64-linux-gnu git-lfs kmod libssl-dev \
-          parted python3 qemu-system-arm qemu-user-static rsync u-boot-tools udev uuid-runtime xz-utils \
+          dd if=/dev/zero of=testfile.img bs=1M count=3072
 
-      - name: Build Ubuntu Image 
-        shell: bash
-        run: ./scripts/build-ubuntu-image.sh
-        
-      - name: Build
-        shell: bash
-        run: sudo ubuntu-image classic -w work -O out ./definitions/${{ matrix.image-definition }}.yaml --debug
-
-      - name: Upload
-        uses: actions/upload-artifact@v4.3.1
+      - name: create release
+        uses: ading2210/gh-large-releases@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: ${{ matrix.image-definition }}
-          path: ./out/*
-          if-no-files-found: error
+          draft: true
+          files: testfile.img
